@@ -38,7 +38,7 @@ const FIRSTSTRING = (str = "", sign = undefined) => {
             : console.log(str.split(sign));
 }
 FIRSTSTRING("Hola Mundo, espero estes bien", " ");
-console.clear();
+
 
 
 
@@ -61,7 +61,7 @@ const LOOPINGSTRING = function (str = "", number= undefined){
 }
 
 LOOPINGSTRING("hola", 0);
-console.clear();
+
 
 // Esta es una solución diferente sin usar el ciclo for
 // let input = function (str, numero){
@@ -225,7 +225,7 @@ const CAPICUANUMBER = (num = undefined)=>{
 }
 
 CAPICUANUMBER(2002);
-console.clear()
+
 
 /*11) Programa una función que calcule el factorial de un número (El factorial de un entero positivo n, 
 se define como el producto de todos los números enteros positivos desde 1 hasta n), pe. miFuncion(5) devolverá 120. */
@@ -248,7 +248,6 @@ const FACTORIAL = function (number = undefined){
 } 
 
 FACTORIAL(5);
-console.clear()
 
 
 /*---------------------------------------------- EJERCICIOS CLASE 4 ------------------------------------------------------------------- */
@@ -341,10 +340,10 @@ const PAIRNUMBERS = (number = undefined) => {
 
 PAIRNUMBERS(2022)
 
-console.clear()
+
 /*14) Programa una función para convertir grados Celsius a Fahrenheit y viceversa, pe. miFuncion(0,"C") devolverá 32°F. */
 
-const TEMPERATURECONVERTER = ( number = undefined, tipo = undefined) => {
+const TEMPERATURECONVERTER = (number = undefined, tipo = undefined) => {
     if (typeof number !== "number") return console.error("recuerda que las temperaturas se expresan en números.");
     if (typeof tipo !== "string") return console.error("Recuerda que el tipo de temperatura solo puede ser Celsius o Farenheit.");
     if (number === undefined) return console.warn("Debes ingresar la temperatura a convertir.");
@@ -372,3 +371,70 @@ const TEMPERATURECONVERTER = ( number = undefined, tipo = undefined) => {
 
 TEMPERATURECONVERTER(300, "°F");
 
+
+/*---------------------------------------------- EJERCICIOS CLASE 5 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 5 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 5 ------------------------------------------------------------------- */
+
+/*15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10. */
+
+const CONVERTERBASE = (number = undefined, base = undefined) => {
+    if (number === undefined) return console.warn("Debes ingresar un número a convertir.");
+    if (base === undefined) return console.warn("Debes especificar la base a la cual deseas realizar la conversión.");
+    if (base !== 2 && base !== 10) return console.warn("Base solo recibe como parametro 2 y 10 que corresponden a conversiones binarias y decimales.");
+    if (base === 10 && typeof number === "string") return console.error("Debes ingresar un dato numérico");
+
+
+    if (base === 2) return console.log(`El número ${number} en base 2 es ${parseInt(number, 2)} en base 10.`);
+
+    if (base === 10) return console.log(`El numero ${number} en base 10 es ${number.toString(2)} en base 2.`);
+}
+
+CONVERTERBASE(0, 2);
+
+
+
+
+/*16) Programa una función que devuelva el monto final después de aplicar un descuento a una cantidad dada, 
+pe. miFuncion(1000, 20) devolverá 800. */
+
+const DISCOUNT = function (price= undefined, discount = undefined){
+    if (price === undefined) return console.warn("Debes ingresar el precio del producto.");
+    if (price  === undefined) return console.warn ("Debes ingresar el porcentaje que deseas aplicar.");
+    if (typeof price !== "number") return console.warn("El valor de precio no es correcto.");
+    if (typeof discount !== "number") return console.warn("El valor de del descuento no es correcto.");
+    if (Math.sign(price) === -1) return console.error("Los precios no pueden expresarse en negativo.");
+    if (Math.sign(discount) === -1) return console.error("Los valores de descuento no pueden expresarse en negativo.");
+
+    let finalDiscount = (discount/100) * price;
+    let result = price - finalDiscount;
+
+    return console.log(`El descuento del ${discount}% sobre ${price} le permite pagar tan solo ${result}.`);
+}
+
+DISCOUNT(1000, 20);
+
+
+/*17) Programa una función que dada una fecha válida determine cuantos años han pasado hasta el día de hoy, 
+pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020). */
+
+
+const ELAPSEDTIME = function (date= undefined){
+
+    if (date === undefined) return console.warn("No ingresaste ninguna fecha.");
+    if (!(date instanceof Date)) return console.error ("Has ingresado una fecha invalida, recuerda hacerlo en el modelo YYYY/MM/DD")
+
+    let timeStamp = new Date().getTime() - date.getTime();
+    let milliToYears = 1000 * 60 * 60 * 24 * 365; // si quieres variar el resultado a horas, semanas, dias o decadas varia esta operación. 
+    let HumanDate = Math.floor(timeStamp/milliToYears);
+    
+    return (Math.sign(HumanDate) === -1)
+    ? console.log(`Faltan ${Math.abs(HumanDate)} años para llegar a ${date.getFullYear()}.`)
+    : (Math.sign(HumanDate) === 1)
+    ? console.log(`Han pasado ${HumanDate} años desde ${date.getFullYear()}.`)
+    : console.log(`Has ingresado la fecha actual`)
+    
+} 
+
+ELAPSEDTIME(new Date(1993,5,3))
+console.clear()
