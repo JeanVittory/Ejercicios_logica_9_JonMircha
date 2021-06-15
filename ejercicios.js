@@ -419,7 +419,7 @@ DISCOUNT(1000, 20);
 pe. miFuncion(new Date(1984,4,23)) devolverá 35 años (en 2020). */
 
 
-const ELAPSEDTIME = function (date= undefined){
+const ELAPSEDTIME = (date= undefined)=>{
 
     if (date === undefined) return console.warn("No ingresaste ninguna fecha.");
     if (!(date instanceof Date)) return console.error ("Has ingresado una fecha invalida, recuerda hacerlo en el modelo YYYY/MM/DD")
@@ -437,4 +437,93 @@ const ELAPSEDTIME = function (date= undefined){
 } 
 
 ELAPSEDTIME(new Date(1993,5,3))
+
+
+/*---------------------------------------------- EJERCICIOS CLASE 6 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 6 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 6 ------------------------------------------------------------------- */
+
+
+/*18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes,
+pe. miFuncion("Hola Mundo") devuelva Vocales: 4, Consonantes: 5. */
+
+
+const VOCALSANDCONSONANTS = (str = undefined) => {
+
+    if (str === undefined || str === "") return  console.warn("Debes ingresar un texto para inicializar la función.");
+    if (typeof str !== "string") return console.error("Has ingresado un parámetro de busqueda no aceptado.");
+
+    let vocals = /[aeiouAEIOU]/gi; 
+    let consonants = /[^aeiouAEIOU\W]/gi;
+    let arrayVocals = str.match(vocals);
+    let arrayConsonants = str.match(consonants);
+    let countVocals = 0;
+    let countConsonants = 0; 
+
+
+    while (arrayVocals === null){
+        arrayConsonants.forEach(index =>{
+            countConsonants++;
+        }); 
+        return console.log(`La palabra ${str} contiene 0 vocales y ${countConsonants} consonantes.`);   
+    }
+    while (arrayConsonants === null){
+        arrayVocals.forEach(index => {
+            countVocals++;
+        });
+        return console.log(`La palabra ${str} contiene ${countVocals} vocales y 0 consonanates.`);
+    }
+    
+
+    arrayVocals.forEach(index => {
+        countVocals++;
+    });
+    arrayConsonants.forEach(index =>{
+        countConsonants++;
+    });
+    return console.log(`La palabra "${str}" contiene ${countVocals} vocales y ${countConsonants} consonantes.`);
+}
+
+VOCALSANDCONSONANTS("Hola Mundo");
+
+
+/*19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.*/
+
+const NAMEVALIDATION =(name = undefined) => {
+
+    if (name === undefined) return console.warn("Debes ingresar un nombre.");
+    if (typeof name !== "string") return console.error("Has ingresado un nombre invalido.");
+
+    let regularExp = /[^a-zA-Z\s]/g
+
+    if (regularExp.test(name) === true) return console.log("Nombre invalido");
+    if (regularExp.test(name) === false) return console.log("Bienvenido");
+
+    
+  
+}
+
+NAMEVALIDATION("Andres Gomez Alban");
+console.clear()
+
+/*20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero. */
+
+const EMAILVALIDATOR = function (mail= undefined){
+    if(mail === undefined) return console.warn("No has ingresado ningún e-mail.");
+    if(typeof mail !== "string") return console.error("correo invalido.");
+
+    let upperRegExp = /[A-Z]/g;
+    
+
+    (mail.search(upperRegExp) !== -1)
+    ? console.error("No puedes usar mayusculas en el correo.")
+    : (mail.search(/[^\w]/g) === 0 || mail.search(/\d/g) === 0)
+    ? console.log("No puedes iniciar un correo con simbolos o números.")
+    : (/[a-z0-9\.-_]+@[a-z0-9\.-_]+\.[a-z]+/g.test(mail) === true) 
+    ? console.log("Bienvenido")
+    : console.log("correo incorrecto");
+}
+
+
+EMAILVALIDATOR("hola_m.und0@gmail.com");
 console.clear()
