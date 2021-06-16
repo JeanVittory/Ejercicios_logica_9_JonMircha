@@ -184,9 +184,19 @@ const REMOVERPATTERN = (str = "", pattern = undefined) => {
 console.log(REMOVERPATTERN("xyz1, xyz2, xyz3, xyz4 y xyz5", "xyz"));
 
 
+
+
+
+
+
+
 /*---------------------------------------------- EJERCICIOS CLASE 3 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 3 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 3 ------------------------------------------------------------------- */
+
+
+
+
 
 
 
@@ -250,9 +260,19 @@ const FACTORIAL = function (number = undefined){
 FACTORIAL(5);
 
 
+
+
+
+
+
 /*---------------------------------------------- EJERCICIOS CLASE 4 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 4 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 4 ------------------------------------------------------------------- */
+
+
+
+
+
 
 
 /*12) Programa una función que determine si un número es primo (aquel que solo es divisible por sí mismo y 1) o no, 
@@ -372,9 +392,21 @@ const TEMPERATURECONVERTER = (number = undefined, tipo = undefined) => {
 TEMPERATURECONVERTER(300, "°F");
 
 
+
+
+
+
 /*---------------------------------------------- EJERCICIOS CLASE 5 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 5 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 5 ------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
 
 /*15) Programa una función para convertir números de base binaria a decimal y viceversa, pe. miFuncion(100,2) devolverá 4 base 10. */
 
@@ -439,9 +471,20 @@ const ELAPSEDTIME = (date= undefined)=>{
 ELAPSEDTIME(new Date(1993,5,3))
 
 
+
+
+
+
+
 /*---------------------------------------------- EJERCICIOS CLASE 6 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 6 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 6 ------------------------------------------------------------------- */
+
+
+
+
+
+
 
 
 /*18) Programa una función que dada una cadena de texto cuente el número de vocales y consonantes,
@@ -526,9 +569,23 @@ EMAILVALIDATOR("hola_m.und0@gmail.com");
 
 
 
+
+
+
+
+
 /*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
 /*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
 
 /*21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado,
 pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25]. */
@@ -538,22 +595,28 @@ const ARRAYSQUARE = (array = undefined)=>{
     if (array === undefined) return console.warn("No has ingresado ningún dato.");
     if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.");
     if (array.length === 0) return console.warn("Has ingresado un array vacio.");
+    for (const iterator of array) {
+        if (typeof iterator !== "number") return console.error(`El valor ${iterator} dentro del array ingresado no es un número.`)
+    }
 
     let arraySquare = array.map(x => Math.pow(x, 2));
     
     return console.log(arraySquare);
 }
 
-ARRAYSQUARE([1,4,5]);
+ARRAYSQUARE(["a", "b"]);
 
  /*22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, 
  pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60]. */
 
- const MAXANDMIN = function (array = undefined){
+ const MAXANDMIN = (array = undefined)=>{
 
     if (array === undefined) return console.warn("No has ingresado ningún dato.");
     if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.");
     if (array.length === 0) return console.warn("Has ingresado un array vacio."); 
+    for (const iterator of array) {
+        if (typeof iterator !== "number") return console.error(`El valor ${iterator} dentro del array ingresado no es un número.`)
+    }
 
     return console.log(`El valor máximo del array dado es ${Math.max.apply(null, array)} y el valor minimo del array dado es ${Math.min.apply(null, array)}.`);
 }
@@ -564,7 +627,7 @@ MAXANDMIN([1, 4, 99, -60]);
 primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) 
 devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}. */
 
-const ARRAYPAIRUNPAIR = function (array = undefined){
+const ARRAYPAIRUNPAIR = (array = undefined)=>{
 
     if (array === undefined) return console.warn("No has ingresado ningún dato.")
     if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.")
@@ -580,9 +643,113 @@ const ARRAYPAIRUNPAIR = function (array = undefined){
             unpair.push(iterator)
         }
     }
-
     return console.log(`Del array ingresado los pares son: ${pair} y los impares son: ${unpair}.`);
+
+/* resultado correcto según la redacción de la pregunta: 
+
+    return console.log({
+        pares: array.filter(x=> x % 2 === 0)
+        impares: array.filter (x=> x % 2 === 1)
+    })
+
+*/
 }
 
 ARRAYPAIRUNPAIR([1,2,3,4,5,6,7,8,9,0]);
-console.clear();
+
+
+
+
+
+
+
+
+
+
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+
+
+/*24) Programa una función que dado un arreglo de números devuelva un objeto con dos arreglos, el primero tendrá 
+los numeros ordenados en forma ascendente y el segundo de forma descendiente, pe. miFuncion([7, 5,7,8,6]) 
+devolverá { asc: [5,6,7,7,8], desc: [8,7,7,6,5] }. */
+
+const ASCDSC = (array = undefined)=>{
+
+    if (array === undefined) return console.warn("No has ingresado ningún dato.");
+    if (!(array instanceof Array)) return console.warn("Debes ingresar un dato de tipo array.");
+    if (array.length === 0) return console.warn("Has ingresado un array vacio.");
+    for (const iterator of array){
+        if (typeof iterator !== "number"){
+            return console.warn(`El dato ${iterator} no es un valor númerico.`);
+        }
+    }
+
+    let ascArray = array.map(function(x){
+        return x;
+    })
+    let asc = ascArray.sort(function(a, b){
+        return a - b;
+    })
+
+    let dscArray = array.map(function(x){
+        return x;
+    })
+    let dsc = dscArray.sort().reverse();
+
+    return console.log({
+        asc: asc,
+        dsc: dsc
+    })
+
+}
+
+ASCDSC([7,5,7,8,6]);
+
+
+/*25) Programa una función que dado un arreglo de elementos, elimine los duplicados, 
+pe. miFuncion(["x", 10, "x", 2, "10", 10, true, true]) devolverá ["x", 10, 2, "10", true].*/
+
+const FILTERDUP = (array = undefined)=>{
+    if (array === undefined) return console.warn("No has ingresado ningún dato.");
+    if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.");
+    if (array.length === 0) return console.error("Has ingresado un array vacio.");
+    if (array.length === 1) return console.warn("Debes ingresar más de un valor dentro del array.");
+    
+
+    let newArray = array.filter(function (item, index){
+        return index === array.indexOf(item)
+    })
+
+    return console.log(newArray)
+
+}
+
+FILTERDUP(["x", 10, "x", 2, "10", 10, true, true])
+
+/*26) Programa una función que dado un arreglo de números obtenga el promedio, 
+pe. promedio([9,8,7,6,5,4,3,2,1,0]) devolverá 4.5. */
+
+
+const ARRAYAVERAGE = (array = undefined)=>{
+
+    if (array === undefined) return console.warn("No has ingresado ningún dato.");
+    if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.");
+    if (array.length === 0) return console.error("Has ingresado un array vacio.");
+
+    const SUMA = (array)=>{
+        let resultado = 0;
+        array.forEach(function(x){
+            resultado += x;
+        })
+        return resultado;
+    }
+
+    let suma = SUMA(array);
+    let resultado = suma / array.length;
+
+    return console.log(`El promedio de los datos entregados es ${resultado.toFixed(1)}`);  
+}
+
+ARRAYAVERAGE([9,8,7,6,5,4,3,2,1,0]);
