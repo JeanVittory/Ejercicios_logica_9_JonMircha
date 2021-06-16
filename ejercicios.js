@@ -489,41 +489,100 @@ VOCALSANDCONSONANTS("Hola Mundo");
 
 /*19) Programa una función que valide que un texto sea un nombre válido, pe. miFuncion("Jonathan MirCha") devolverá verdadero.*/
 
-const NAMEVALIDATION =(name = undefined) => {
+const NAMEVALIDATION = (name = undefined) => {
 
     if (name === undefined) return console.warn("Debes ingresar un nombre.");
     if (typeof name !== "string") return console.error("Has ingresado un nombre invalido.");
 
-    let regularExp = /[^a-zA-Z\s]/g
+    let regularExp = /^[a-zA-Z\sÑñÁáÉéÍíÓóÚúÜü]+$/g.test(name)
 
-    if (regularExp.test(name) === true) return console.log("Nombre invalido");
-    if (regularExp.test(name) === false) return console.log("Bienvenido");
-
-    
-  
+    return (regularExp)
+    ? console.log("Bienvenido")
+    : console.log("Nombre Invalido.")
 }
 
-NAMEVALIDATION("Andres Gomez Alban");
-console.clear()
+NAMEVALIDATION("Andrés");
+
 
 /*20) Programa una función que valide que un texto sea un email válido, pe. miFuncion("jonmircha@gmail.com") devolverá verdadero. */
 
-const EMAILVALIDATOR = function (mail= undefined){
+const EMAILVALIDATOR = (mail= undefined)=>{
     if(mail === undefined) return console.warn("No has ingresado ningún e-mail.");
     if(typeof mail !== "string") return console.error("correo invalido.");
 
     let upperRegExp = /[A-Z]/g;
-    
 
     (mail.search(upperRegExp) !== -1)
     ? console.error("No puedes usar mayusculas en el correo.")
     : (mail.search(/[^\w]/g) === 0 || mail.search(/\d/g) === 0)
     ? console.log("No puedes iniciar un correo con simbolos o números.")
-    : (/[a-z0-9\.-_]+@[a-z0-9\.-_]+\.[a-z]+/g.test(mail) === true) 
+    : (/[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})/i.test(mail) === true) 
     ? console.log("Bienvenido")
     : console.log("correo incorrecto");
 }
 
 
 EMAILVALIDATOR("hola_m.und0@gmail.com");
-console.clear()
+
+
+
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+
+/*21) Programa una función que dado un array numérico devuelve otro array con los números elevados al cuadrado,
+pe. mi_funcion([1, 4, 5]) devolverá [1, 16, 25]. */
+
+const ARRAYSQUARE = (array = undefined)=>{
+
+    if (array === undefined) return console.warn("No has ingresado ningún dato.");
+    if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.");
+    if (array.length === 0) return console.warn("Has ingresado un array vacio.");
+
+    let arraySquare = array.map(x => Math.pow(x, 2));
+    
+    return console.log(arraySquare);
+}
+
+ARRAYSQUARE([1,4,5]);
+
+ /*22) Programa una función que dado un array devuelva el número mas alto y el más bajo de dicho array, 
+ pe. miFuncion([1, 4, 5, 99, -60]) devolverá [99, -60]. */
+
+ const MAXANDMIN = function (array = undefined){
+
+    if (array === undefined) return console.warn("No has ingresado ningún dato.");
+    if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.");
+    if (array.length === 0) return console.warn("Has ingresado un array vacio."); 
+
+    return console.log(`El valor máximo del array dado es ${Math.max.apply(null, array)} y el valor minimo del array dado es ${Math.min.apply(null, array)}.`);
+}
+
+MAXANDMIN([1, 4, 99, -60]);
+
+/*23) Programa una función que dado un array de números devuelva un objeto con 2 arreglos en el 
+primero almacena los números pares y en el segundo los impares, pe. miFuncion([1,2,3,4,5,6,7,8,9,0]) 
+devolverá {pares: [2,4,6,8,0], impares: [1,3,5,7,9]}. */
+
+const ARRAYPAIRUNPAIR = function (array = undefined){
+
+    if (array === undefined) return console.warn("No has ingresado ningún dato.")
+    if (!(array instanceof Array)) return console.error("Debes ingresar un dato de tipo array.")
+    if (array.length === 0 || array.length == 1) return console.warn("El array no puede estar vacio y debe contener al menos más de 1 elemento.");
+
+    let pair =[];
+    let unpair = [];
+
+    for (const iterator of array){
+        if(iterator % 2 === 0){
+            pair.push(iterator)
+        }else{
+            unpair.push(iterator)
+        }
+    }
+
+    return console.log(`Del array ingresado los pares son: ${pair} y los impares son: ${unpair}.`);
+}
+
+ARRAYPAIRUNPAIR([1,2,3,4,5,6,7,8,9,0]);
+console.clear();
