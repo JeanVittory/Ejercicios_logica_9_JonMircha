@@ -753,3 +753,184 @@ const ARRAYAVERAGE = (array = undefined)=>{
 }
 
 ARRAYAVERAGE([9,8,7,6,5,4,3,2,1,0]);
+console.clear()
+
+
+
+
+
+
+
+
+
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+/*---------------------------------------------- EJERCICIOS CLASE 7 ------------------------------------------------------------------- */
+
+/*27) Programa una clase llamada Pelicula.
+
+La clase recibirá un objeto al momento de instanciarse con los siguentes datos: id de la película en IMDB, titulo, 
+director, año de estreno, país o países de origen, géneros y calificación en IMBD.
+
+
+    - Todos los datos del objeto son obligatorios.
+    - Valida que el id IMDB tenga 9 caracteres, los primeros 2 sean letras y los 
+    7 restantes números.
+    - Valida que el título no rebase los 100 caracteres.
+    - Valida que el director no rebase los 50 caracteres.
+    - Valida que el año de estreno sea un número entero de 4 dígitos.
+    - Valida que el país o paises sea introducidos en forma de arreglo.
+    - Valida que los géneros sean introducidos en forma de arreglo.
+    - Valida que los géneros introducidos esten dentro de los géneros 
+        aceptados*.
+    - Crea un método estático que devuelva los géneros aceptados*.
+    - Valida que la calificación sea un número entre 0 y 10 pudiendo ser 
+        decimal de una posición.
+    - Crea un método que devuelva toda la ficha técnica de la película.
+    - Apartir de un arreglo con la información de 3 películas genera 3 
+        instancias de la clase de forma automatizada e imprime la ficha técnica 
+        de cada película.
+
+* Géneros Aceptados: Action, Adult, Adventure, Animation, Biography, Comedy, Crime, Documentary ,Drama, Family, 
+Fantasy, Film Noir, Game-Show, History, Horror, Musical, Music, Mystery, News, Reality-TV, Romance, Sci-Fi, Short, 
+Sport, Talk-Show, Thriller, War, Western. */
+
+class Pelicula {
+    constructor({id, titulo, director, anioDeEstreno, pais, genero, calificacionEnIMDB}){
+        this.id = id,
+        this.titulo = titulo,
+        this.director = director,
+        this.anioDeEstreno = anioDeEstreno,
+        this.pais = pais,
+        this.genero = genero, 
+        this.calificacionEnIMDB = calificacionEnIMDB,
+        this.validatorImdb(id),
+        this.validatorTitulo(titulo),
+        this.validatorDirector(director),
+        this.validatorYear(anioDeEstreno),
+        this.validatorCountry(pais),
+        this.validatorGenre(genero),
+        this.validatorQualify(calificacionEnIMDB)
+    }
+
+    static get listaDeGeneros(){
+        return ["Action", "Adult", "Adventure", "Animation", "Biography", "Comedy", "Crime", "Documentary", "Drama", "Family",  
+        "Fantasy", "Film Noir", "Game-Show", "History", "Horror", "Musical", "Music", "Mystery", "News", "Reality-TV", "Romance", "Sci-Fi", "Short", 
+        "Sport", "Talk-Show", "Thriller", "War", "Western"] 
+    }
+
+    static generosAceptados(){
+        return console.log(`Los géneros aceptados son: ${Pelicula.listaDeGeneros.join(", ")}`)
+    }
+
+    validatorString(propiedad, valor){
+        if (!valor) return console.error(`El parámetro ${propiedad} esta vacio.`)
+        if (typeof valor !== "string") return console.error(`El valor ${valor} debe ser una cadena de texto.`)
+        if (!valor.trim().length) return console.error(`El parámetro ${propiedad} no contiene ningun valor.`)
+
+        return true
+    }
+    validatorNumber(propiedad, valor){
+        if (!valor) return console.error(`El parámetro ${propiedad} esta vacio.`)
+        if (typeof valor !== "number") return console.error(`El valor ${propiedad} debe ser un número.`)
+        
+        return true
+    }
+    validatorLength(propiedad, valor, longitud){
+        if (valor.length > longitud) return console.error(`El parámetro ${propiedad} no puede ser mayor a ${longitud}.`)
+
+        return true
+    }
+    validatorArray(propiedad, valor){
+        if(!(valor instanceof Array)) return console.error(`El parámetro ${propiedad} debe ser un array.`)
+        if (valor.length === 0) return console.error(`El parámetro ${propiedad} contiene un array vacio.`)
+        for (let cadena of valor) {
+            if (typeof cadena !== "string"){
+                return console.error(`El ${valor} no es un texto. Ingresa solo datos de tipo texto.`)
+            }
+        }
+
+        return true
+    }
+
+    
+
+    validatorImdb(id){
+        if(this.validatorString("id IMDB", id)){
+            if (!(/^([a-z]){2}([0-9]){7}$/.test(id))){
+                return console.error(`El id ingresado ${id} no es valido. Debe contener los dos primeros caracter como letras
+                y los 7 últimos caracteres como números.`)
+            }
+        }
+    }
+    validatorTitulo(titulo){
+        if(this.validatorString("Título", titulo)){
+            this.validatorLength("Título", titulo, 100)
+        }
+
+    }
+    validatorDirector(director){
+        if(this.validatorString("Director", director)){
+            this.validatorLength("Director", director, 50)
+        }
+    }
+    validatorYear(anioDeEstreno){
+        if (this.validatorNumber("Año de estreno", anioDeEstreno)){
+            if((!(/^([0-9]){4}$/.test(anioDeEstreno)))){
+                console.error("El número ingresado debe contener solamente 4 dígtos.")
+            } if(!Number.isInteger(anioDeEstreno)) return console.error("El año de estreno debe ser un numero entero.")      
+        }        
+    }  
+    validatorCountry(pais){
+        if(this.validatorArray("país", pais)){
+        }
+    } 
+    validatorGenre(genero){
+        if(this.validatorArray("género", genero)){
+            for (const iterator of genero){
+                if(!Pelicula.listaDeGeneros.includes(iterator)){
+                    console.error(`El género ${genero.join(", ")} no es valido.`, Pelicula.listaDeGeneros)
+                }
+                
+            }
+        }
+    }
+    validatorQualify(calificacionEnIMDB){
+        if (this.validatorNumber("Calificación", calificacionEnIMDB)){
+            if(calificacionEnIMDB < 0 || calificacionEnIMDB > 10){
+                console.error("La calificación ingresada no es valida.")
+            } else{
+                this.calificacionEnIMDB = calificacionEnIMDB.toFixed(1)
+            }
+        }  
+    }  
+
+    techinicalDataSheet(){
+        console.log(`Ficha tecnica :\n\nId: ${this.id}\nTitulo: ${this.titulo}\nDirector: ${this.director}\nAño de estreno: ${this.anioDeEstreno}\nPaís: ${this.pais}\nGénero: ${this.genero}\nCalificación: ${this.calificacionEnIMDB}`)
+    }
+}
+
+
+let ARMAGEDON = new Pelicula ({
+    id: "tt1234567",
+    titulo: "Carlos Cifuentes",
+    director:  "El director",
+    anioDeEstreno: 2020,
+    pais: ["Colombia"],
+    genero: ["Comedy", "Adventure"],
+    calificacionEnIMDB: 8.34
+})
+
+
+ARMAGEDON.techinicalDataSheet()
+console.clear()
+
+
+const SOLVEMEFIRST = (intA = "undefinded", intB ="undefined")=>{
+    if(intA === undefined || intB === undefined) return console.warn("You must enter two values to sum.");
+    if (typeof intA !== "number" || typeof intB !== "number") return console.warn("This function only allows you to enter numbers");
+    
+    return console.log(`The final result is: ${intA+intB}.`);
+}
+
+SOLVEMEFIRST(7,3)
